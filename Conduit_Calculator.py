@@ -3,13 +3,13 @@ import tkinter as tk
 # Function to update the text of the message label when the "Calculate" button is clicked
 def print_text():
     # Fetch data from user inputs and prepare message
-    input_text = text_entry.get()
-    amp1_text = amp_entry1.get() if checkbox_value1.get() else 'N/A'
-    bonding_size_text = bonding_size_var.get() if checkbox_value2.get() else 'N/A'
-    conductor_option_value = conductor_option_var.get()
-    type_option_value = type_option_var.get()
+    amount = text_entry.get()
+    amperage = amp_entry1.get() if checkbox_value1.get() else 'N/A'
+    manual = bonding_size_var.get() if checkbox_value2.get() else 'N/A'
+    conductor_size = conductor_option_var.get()
+    conductor_type = type_option_var.get()
 
-    message_var.set(f"Text: {input_text}, Amps 1: {amp1_text}, Bonding Size: {bonding_size_text}, Checkbox 1: {'Checked' if checkbox_value1.get() else 'Not checked'}, Checkbox 2: {'Checked' if checkbox_value2.get() else 'Not checked'}, Conductor Size: {conductor_option_value}, Type: {type_option_value}")
+    message_var.set(f"Type: {conductor_type}, Amt: {amount}, Conductor Size: {conductor_size}, Amps: {amperage}, Bonding Size: {manual}, \n {checkbox_value1.get()}, {checkbox_value2.get()}")
 
 # Function to update the GUI when checkboxes are clicked
 def checkbox_changed():
@@ -31,18 +31,18 @@ def checkbox_changed():
 
 # Create the main window
 root = tk.Tk()
-root.geometry("800x600")
+root.geometry("1000x600")
 root.configure(bg="light blue")
 
 # Main title label
-title = tk.Label(root, text="Conduit Sizing Calculator", font=("Times New Roman", 40), bg="light blue", fg="blue")
+title = tk.Label(root, text="Conduit Size Calculator", font=("Times New Roman", 40), bg="light blue", fg="blue")
 title.pack()
 
 # Frame and widgets for selecting type of conductors
 type_option_frame = tk.Frame(root, bg="light blue")
 type_option_frame.pack()
 
-type_option_label = tk.Label(type_option_frame, text="Select the type of conductors:", font=("Times New Roman", 20), bg="light blue")
+type_option_label = tk.Label(type_option_frame, text="Select Conductor Type", font=("Times New Roman", 20), bg="light blue")
 type_option_label.grid(row=0, column=0)
 
 type_option_var = tk.StringVar()
@@ -64,11 +64,12 @@ text_entry.grid(row=0, column=1)
 conductor_option_frame = tk.Frame(root, bg="light blue")
 conductor_option_frame.pack()
 
-conductor_option_label = tk.Label(conductor_option_frame, text="Enter conductor size:", font=("Times New Roman", 20), bg="light blue")
+conductor_option_label = tk.Label(conductor_option_frame, text="Select Conductor Size:", font=("Times New Roman", 20), bg="light blue")
 conductor_option_label.grid(row=0, column=0)
 
 conductor_option_var = tk.StringVar()
-conductor_option_menu = tk.OptionMenu(conductor_option_frame, conductor_option_var, 12, 10, 8, 6)
+conductor_option_menu = tk.OptionMenu(conductor_option_frame, conductor_option_var, "12", "10", "8", "6", "4", "3", "2", "1", "1/0", "2/0", "3/0", "4/0", "250", "300", "350", "500", \
+                                                                                    "750", "1000", "1250", "1500", "1750", "2000")
 conductor_option_menu.config(font=("Times New Roman", 20), bg="light blue")
 conductor_option_menu.grid(row=0, column=1)
 
@@ -96,7 +97,8 @@ bonding_size_label = tk.Label(bonding_size_frame, text="Select bonding conductor
 bonding_size_label.grid(row=0, column=0)
 
 bonding_size_var = tk.StringVar()
-bonding_size_menu = tk.OptionMenu(bonding_size_frame, bonding_size_var, 12, 10, 8, 6)
+bonding_size_menu = tk.OptionMenu(bonding_size_frame, bonding_size_var, "12", "10", "8", "6", "4", "3", "2", "1", "1/0", "2/0", "3/0", "4/0", "250", "300", "350", "500", \
+                                                                                    "750", "1000", "1250", "1500", "1750", "2000")
 bonding_size_menu.config(font=("Times New Roman", 20), bg="light blue")
 bonding_size_menu.grid(row=0, column=1)
 
