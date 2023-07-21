@@ -83,6 +83,78 @@ RM = {
     "78": 1935.43, "91": 2583.29, "103": 3324.51, "129": 5215.77, "155": 7524.32
 }
 
+FM = {
+    "12": 28.47, "16": 79.22, "21": 133.58, "27": 202.68, "35": 316.69, "41": 456.04, "53": 810.73,
+    "63": 1266.77, "78": 1824.15, "91": 2482.87, "103": 3242.93
+}
+
+RP = {
+    "16": 66.69, "21": 122.79, "27": 202.68, "35": 316.69, "41": 456.04, "53": 810.3, "63": 1180.51, 
+    "78": 1824.15, "91": 2455.02, "103": 3147.88, "129": 4795.72, "155": 7045.04, "200": 12489.83
+}
+
+RR = {
+    "53": 810.73, "78": 1824.15, "91": 2455.02, "103": 3147.88, "129": 5015.34, "155": 7045.04
+}
+
+MLF = {
+    "12": 47.45, "16": 78.43, "21": 136.3, "27": 219.62, "35": 385.95, "41": 502.91, "53": 827.09,
+    "63": 1246.5, "78": 1910.36, "91": 2482.87, "103": 3242.93
+}
+
+NMLF = {
+    "12": 45.77, "16": 75.38, "21": 131.38, "27": 210.9, "35": 374.8, "41": 502.91, "53": 839.39
+}
+
+EM = {
+    "16": 74.51, "21": 132.03, "27": 215.65, "35": 376.1, "41": 515.3, "53": 852.76, "63": 1513.1, 
+    "78": 2280.49, "91": 2980.35, "103": 3801.33
+}
+
+ENM = {
+    "16": 66.78, "21": 121.43, "27": 202.2, "35": 357.42, "41": 491.91, "53": 822.91
+}
+
+RRCMI = {
+    "16": 93.7, "21": 160.6, "27": 270.44, "35": 456.04, "41": 613.5, "53": 994.37, "63": 1521.84,
+    "78": 2261.26, "103": 3782, "129": 5822.66, "155": 8249.89
+}
+
+RRCMD = {
+    "16": 44.79, "21": 105.09, "27": 190.74, "35": 301.71, "41": 438.02, "53": 794.54, "63": 1246.9,
+    "78": 1799.81, "91": 2454.46, "103": 3210.45, "129": 5006.61
+}
+
+HDPE4 = {
+    "16": 67.61, "21": 122.91, "27": 202.68, "35": 359.33, "41": 493.4, "53": 822.91, "63": 1173.97,
+    "78": 1821.28, "103": 3157.95, "129": 4980.47, "155": 7210.66, "200": 12521.17
+}
+
+HDPE8 = {
+    "16": 51.07, "21": 98.42, "27": 167.06, "35": 303.86, "41": 421.53, "53": 718.4, "63": 1019.63,
+    "78": 1600.67, "103": 2809.08, "129": 4467.52, "155": 6411.67
+}
+
+HDPE9 = {
+    "16": 75.18, "21": 121.3, "27": 194.16, "35": 311.92, "41": 409.42, "53": 641.56, "63": 937.59,
+    "78": 1391.8, "103": 2289.07, "129": 3499.32, "155": 4958.34, "200": 8406.4, "275": 13053.55
+}
+
+HDPE11 = {
+    "16": 83.47, "21": 135, "27": 215.82, "35": 348.58, "41": 460.12, "53": 721.11, "63": 1053.92,
+    "78": 1565.88, "103": 2574.18, "129": 3935.89, "155": 5575.56, "200": 9455.81, "275": 14683.21
+}
+
+HDPE135 = {
+    "16": 91.01, "21": 146.98, "27": 234.65, "35": 378.93, "41": 500.9, "53": 791.06, "63": 1156.75,
+    "78": 1718.01, "103": 2825.15, "129": 4318.92, "155": 6119.75, "200": 10376.5, "275": 16115.65
+}
+
+HDPE155 = {
+    "16": 95.44, "21": 153.99, "27": 245.77, "35": 396.81, "41": 524.24, "53": 830, "63": 1217,
+    "78": 1807.43, "103": 2973.63, "129": 4545.79, "155": 6441.33, "200": 10918.96, "275": 16960.37
+}
+
 #Amp
 amp = {
     "12": 30, "10": 60, "8": 100, "6": 200, "4": 300, "3": 400, "2": 500, "1": 600, "1/0": 800,
@@ -141,7 +213,37 @@ def get_area(type, amt, c_size, b_size):
 
 def get_diameter(type, area):
     if type == "Electrical Metallic Tubing":
+        return find_largest_value_key(EM, area)
+    elif type == "Rigid Metal Conduit":
         return find_largest_value_key(RM, area)
+    elif type == "Flexible Metal Conduit":
+        return find_largest_value_key(FM, area)
+    elif type == "Rigid PVC Conduit":
+        return find_largest_value_key(RP, area)
+    elif type == "Rigid EB1 PVC and Rigid DB2/ES2 PVC Conduit":
+        return find_largest_value_key(RR, area)
+    elif type == "Metallic Liquid-tight Flexible Conduit":
+        return find_largest_value_key(MLF, area)
+    elif type == "Non-metallic Liquid-tight Flexible Conduit":
+        return find_largest_value_key(NMLF, area)
+    elif type == "Electrical Non-metallic Tubing":
+        return find_largest_value_key(ENM, area)
+    elif type == "Rigid RTRC Conduit Marked IPS":
+        return find_largest_value_key(RRCMI, area)
+    elif type == "Rigid RTRC Conduit Marked ID":
+        return find_largest_value_key(RRCMD, area)
+    elif type == "HDPE Conduit Schedule 40":
+        return find_largest_value_key(HDPE4, area)
+    elif type == "HDPE Conduit Schedule 80":
+        return find_largest_value_key(HDPE8, area)
+    elif type == "HDPE DR9 Conduit":
+        return find_largest_value_key(HDPE9, area)
+    elif type == "HDPE DR11 Conduit":
+        return find_largest_value_key(HDPE11, area)
+    elif type == "HDPE DR13.5 Conduit":
+        return find_largest_value_key(HDPE135, area)
+    elif type == "HDPE DR15.5 Conduit":
+        return find_largest_value_key(HDPE155, area)
     else:
         return None
 
