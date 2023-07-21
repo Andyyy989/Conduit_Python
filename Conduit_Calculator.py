@@ -69,7 +69,7 @@ def print_text():
     if checkbox_value1.get():
         bond_size = find_largest_value_key(amp, float(amperage))
     elif checkbox_value2.get():
-        bond_size = float(manual)
+        bond_size = manual
     else: 
         bond_size = find_largest_value_key(amp, float(sizeToAmp[conductor_size]))
 
