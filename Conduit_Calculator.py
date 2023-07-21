@@ -1,6 +1,6 @@
 import tkinter as tk
 
-# Data From Table 6
+# Data From Table 6 -- verified
 RRRU6 = {
     "12": 11.58, "10": 15.69, "8": 28.18, "6": 37.94, "4": 52.42, "3": 61.93, "2": 73.9, "1": 99.05,
     "1/0": 118.24, "2/0": 141.87, "3/0": 170.64, "4/0": 206.37, "250": 251.65, "300": 292.55, "350": 331.03,
@@ -77,7 +77,7 @@ TTN = {
     "400": 377.72, "450": 417.28, "500": 455.79
 }
 
-# Data From Table 9
+# Data From Table 9 -- verified
 RM = {
     "16": 80.93, "21": 141.6, "27": 229.02, "35": 393.91, "41": 534.56, "53": 879.48, "63": 1255.62, 
     "78": 1935.43, "91": 2583.29, "103": 3324.51, "129": 5215.77, "155": 7524.32
@@ -155,14 +155,14 @@ HDPE155 = {
     "78": 1807.43, "103": 2973.63, "129": 4545.79, "155": 6441.33, "200": 10918.96, "275": 16960.37
 }
 
-#Amp
+#Amp -- verified
 amp = {
     "12": 30, "10": 60, "8": 100, "6": 200, "4": 300, "3": 400, "2": 500, "1": 600, "1/0": 800,
     "2/0": 1000, "3/0": 1200, "4/0": 1600, "250": 2000, "350": 2500, "400": 3000,
     "500": 4000, "700": 5000, "800": 6000 
 }
 
-#Size to Amp
+#Size to Amp -- verified
 sizeToAmp = {
     "12": 25, "10": 35, "8": 50, "6": 65, "4": 85, "3": 100, "2": 115, "1": 130, 
     "1/0": 150, "2/0": 175, "3/0": 200, "4/0": 230, "250": 255, "300": 285, "350": 310, 
@@ -206,11 +206,12 @@ def get_area(type, amt, c_size, b_size):
         return int(amt) * float(RJ20[c_size]) + float(RJ20[b_size])
     elif type == "TW, TW75":
         return int(amt) * float(TT[c_size]) + float(TT[b_size])
-    elif type == "TWN75, T90 NYLON":
+    elif type == "TWN75, T90 NYLON(Max Size: 500)":
         return int(amt) * float(TTN[c_size]) + float(TTN[b_size])
     else:
         return None
 
+#Switch area -- returns the conduit size
 def get_diameter(type, area):
     if type == "Electrical Metallic Tubing":
         return find_largest_value_key(EM, area)
@@ -257,17 +258,20 @@ def print_text():
     amperage = amp_entry1.get() if checkbox_value1.get() else 'N/A'
     manual = bonding_size_var.get() if checkbox_value2.get() else 'N/A'
 
-    if checkbox_value1.get():
-        bond_size = find_largest_value_key(amp, float(amperage))
-    elif checkbox_value2.get():
+    if checkbox_value2.get():
         bond_size = manual
+    elif checkbox_value1.get():
+        bond_size = find_largest_value_key(amp, float(amperage))
     else: 
         bond_size = find_largest_value_key(amp, float(sizeToAmp[conductor_size]))
 
     area = get_area(conductor_type, amount, conductor_size, bond_size)
     diameter = get_diameter(conduit_type, float(area))
     
-    message_var.set(f"{conduit_type} Amt: {amount}, Conductor Size: {conductor_size}, Amps: {amperage}, Bonding Size: {manual}, \n Bond size: {bond_size}, A: {area} D: {diameter}")
+    if diameter == None:
+        message_var.set("Cannot find a suitable conduit")
+    else:
+        message_var.set(f"Your Conduit Size is {diameter}mm \n Conductor: {conductor_size}AWG \n Bonding Conductor: {bond_size}AWG \n 40% Area: {round(area,2)}")
 
 # Function to update the GUI when checkboxes are clicked
 def checkbox_changed():
@@ -314,7 +318,7 @@ type_option_menu = tk.OptionMenu(type_option_frame, type_option_var,    "R90XLPE
                                                                         "RPVU90 JACKETED 1000V", \
                                                                         "RPVU90 JACKETED 2000V", \
                                                                         "TW, TW75", \
-                                                                        "TWN75, T90 NYLON")
+                                                                        "TWN75, T90 NYLON(Max Size: 500)")
 type_option_menu.config(font=("Times New Roman", 20), bg="light blue")
 type_option_menu.grid(row=0, column=1)
 
