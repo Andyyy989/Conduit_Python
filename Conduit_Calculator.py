@@ -258,6 +258,15 @@ def print_text():
     amperage = amp_entry1.get() if checkbox_value1.get() else 'N/A'
     manual = bonding_size_var.get() if checkbox_value2.get() else 'N/A'
 
+    if conductor_type == '':
+        message_var.set("Please Select a Conductor Type")
+    elif conduit_type == '':
+        message_var.set("Please Select a Conduit Type")
+    elif amount == '': 
+        message_var.set("Please enter the amount of conduits.")
+    elif conductor_size == '':
+        message_var.set("Please Select a Conductor Size")
+        
     if checkbox_value2.get():
         bond_size = manual
     elif checkbox_value1.get():
