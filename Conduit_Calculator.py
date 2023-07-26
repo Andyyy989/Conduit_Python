@@ -317,6 +317,7 @@ type_option_label = tk.Label(type_option_frame, text="Select Conductor Type", fo
 type_option_label.grid(row=0, column=0)
 
 type_option_var = tk.StringVar()
+type_option_var.set("R90XLPE, RW75XLPE, RW90XLPE UNJACKETED 600V")
 type_option_menu = tk.OptionMenu(type_option_frame, type_option_var,    "R90XLPE, RW75XLPE, RW90XLPE UNJACKETED 600V", \
                                                                         "R90XLPE, RW75XLPE, RW90XLPE UNJACKETED 1000V", \
                                                                         "R90XLPE, RW75XLPE, R90EP, RW75EP, RW90XLPE, RW90EP JACKETED 600V", \
@@ -339,6 +340,7 @@ type_option_label2 = tk.Label(type_option_frame2, text="Select Conduit Type", fo
 type_option_label2.grid(row=0, column=0)
 
 type_option_var2 = tk.StringVar()
+type_option_var2.set("Electrical Metallic Tubing")
 type_option_menu2 = tk.OptionMenu(type_option_frame2, type_option_var2, "Electrical Metallic Tubing", \
                                                                         "Rigid Metal Conduit", \
                                                                         "Flexible Metal Conduit", \
